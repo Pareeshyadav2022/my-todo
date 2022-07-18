@@ -4,6 +4,7 @@ function Practice() {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/photos")
+    //fetch("https://logging.googleapis.com/v2/{parent=billingAccounts/*/locations/*/buckets/*}/views")
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
@@ -14,33 +15,13 @@ function Practice() {
       <table border="1">
         <thead>
           <th>Id</th>
-          <th>Thumbnail Url</th>
           <th>Title</th>
-          <th>Url</th>
         </thead>
         {data.map((item, index) => (
           <tbody key={index}>
             <td>{item.id}</td>
-            <td>
-              <img
-                src={item.thumbnailUrl}
-                className="img"
-                height="100"
-                width="100"
-                alt="d"
-              />
-            </td>
             <td>{item.title}</td>
-            <td>
-              <img
-                src={item.url}
-                className="img"
-                height="100"
-                width="100"
-                alt="d"
-              />
-            </td>
-          </tbody>
+            </tbody>
         ))}
       </table>
     </div>

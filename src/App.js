@@ -10,17 +10,22 @@ function App() {
   const [tampVal, setTampVal] = useState({ id: null, index: null, task: "" });
 
   const [input, setInput] = useState({ id: 0, task: "" });
+  const [addProp,setAddProp] = useState("inline");
+  const [saveProp,setSaveProp] = useState("none");
 
-  const getState = useSelector((state) => state);
+  const reduxState = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   const addTodo = () => {
-    dispatch(addTasks(input));
+    input.task.trim()?
+    dispatch(addTasks(input)):<h1>enter a value</h1>
     setInput({ task: "" });
     ref.current.focus();
-    //console.log(getState.value.map((x) => x.task));
   };
+  useEffect(()=>{
+    console.log(reduxState.value);
+  },[reduxState]);
 
   const changeHandler = (e) => {
     setTampVal({ id: tampVal.id, index: tampVal.index, task: e.target.value });
@@ -33,34 +38,27 @@ function App() {
   const editTask = (value, ind) => {
     setInput({ id: value.id, task: value.task });
     setTampVal({ id: value.id, index: ind, task: value.task });
+    setAddProp("none");
+    setSaveProp("inline");
     ref.current.focus();
   };
 
-  const updateTodo = () => {
-    setTampVal({ task: input.task });
-    dispatch(updateTask(tampVal));
-    setInput({ task: "" });
-    ref.current.focus();
+  const updateTodo = () => {return <div>
+    {input.task.trim() ? (setTampVal({ task: input.task }),
+    dispatch(updateTask(tampVal)),
+    setInput({ task: "" }),
+    setAddProp("inline"),
+    setSaveProp("none"),
+    ref.current.focus()):(null)};
+  </div>
+  
   };
 
-  useEffect(() => {
+  const deleteTodo = (id) => {
+     dispatch(deleteTask(id));
     ref.current.focus();
-    console.log("useEffect", getState.value);
-  }, [getState]);
-
-  const deleteTodo = (value, ind) => {
-    setTampVal({ id: value.id, index: ind, task: value.task });
-    dispatch(deleteTask(tampVal));
-    ref.current.focus();
-  };
-
-  function dltBtn(x, index) {
-    x.task !== "" ? (
-      console.log("dltBtn")
-    ) : (
-      <button onClick={() => deleteTodo(x, index)}>dlt</button>
-    );
   }
+
 
   return (
     <div className="App">
@@ -73,12 +71,11 @@ function App() {
         placeholder="Write a todo..."
         onChange={changeHandler}
       />
-      <button onClick={addTodo}>Add</button>
-      <button onClick={updateTodo}>Save</button>
-      {useEffect(() => {}, [])}
-      {getState.value.map((x, index) => {
+      <button onClick={addTodo} style={{display:addProp}}>Add</button>
+      <button onClick={updateTodo} style={{display:saveProp}}>Save</button>
+      {reduxState.value.map((x, index) => {
         return (
-          <div
+          <div key={index}
             style={{
               display: "flex",
               alignItems: "center",
@@ -92,11 +89,11 @@ function App() {
             <p
               key={index}
               onClick={() => editTask(x, index)}
-              style={{ margin: "10px" }}
+              style={{ margin: "10px",display:{addProp} }}
             >
               {x.task}
             </p>
-            {dltBtn(x, index)}
+            <button onClick={()=>deleteTodo(x.id)} >dlt</button>
           </div>
         );
       })}
