@@ -56,6 +56,8 @@ function App() {
 
   const deleteTodo = (id) => {
      dispatch(deleteTask(id));
+     setAddProp("inline");
+     setSaveProp("none");
     ref.current.focus();
   }
 
