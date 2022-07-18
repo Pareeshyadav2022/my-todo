@@ -6,11 +6,13 @@ import { addTasks, updateTask, deleteTask } from "./redux/reducer";
 
 function App() {
   const ref = useRef("");
-  //const [upadated, setUpdated] = useState(null);
+
   const [tampVal, setTampVal] = useState({ id: null, index: null, task: "" });
 
   const [input, setInput] = useState({ id: 0, task: "" });
+
   const [addProp,setAddProp] = useState("inline");
+
   const [saveProp,setSaveProp] = useState("none");
 
   const reduxState = useSelector((state) => state);
@@ -23,6 +25,7 @@ function App() {
     setInput({ task: "" });
     ref.current.focus();
   };
+  
   useEffect(()=>{
     console.log(reduxState.value);
   },[reduxState]);
@@ -51,7 +54,6 @@ function App() {
     setSaveProp("none"),
     ref.current.focus()):(null)};
   </div>
-  
   };
 
   const deleteTodo = (id) => {
@@ -60,7 +62,6 @@ function App() {
      setSaveProp("none");
     ref.current.focus();
   }
-
 
   return (
     <div className="App">
@@ -86,15 +87,12 @@ function App() {
               width: "27%",
               marginLeft: "36%",
               padding: "0px",
-            }}
-          >
+            }}>
             <p
               key={index}
               onClick={() => editTask(x, index)}
-              style={{ margin: "10px",display:{addProp} }}
-            >
-              {x.task}
-            </p>
+              style={{ margin: "10px",display:{addProp} }}>
+              {x.task}</p>
             <button onClick={()=>deleteTodo(x.id)} >dlt</button>
           </div>
         );
