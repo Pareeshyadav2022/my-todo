@@ -1,6 +1,8 @@
 .App {
   align-items: center;
   text-align: center;
+  min-height: 100vh;
+  min-width: 100vh;
 }
 
 .App input,
@@ -12,9 +14,11 @@ p {
   border-radius: 8px;
   font-size: 18px;
 }
+
 .App button,
 p:hover {
   cursor: pointer;
+  border-radius: px;
 }
 
 body {
