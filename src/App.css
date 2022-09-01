@@ -1,10 +1,23 @@
 .App {
   align-items: center;
   text-align: center;
-
- 
 }
-body{
+
+.App input,
+button,
+p {
+  border: none;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.App button,
+p:hover {
+  cursor: pointer;
+}
+
+body {
   background-color: #b9c7e2;
 }
 
@@ -13,7 +26,7 @@ body{
   pointer-events: none;
 }
 
-.TodoItems h4{
+.TodoItems h4 {
   display: flex;
   border: 1px solid rgb(170, 157, 157);
   border-radius: 4px;
