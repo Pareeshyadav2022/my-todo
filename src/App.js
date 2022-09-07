@@ -1,6 +1,7 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "./App.css";
 
 import { addTasks, updateTask, deleteTask } from "./redux/reducer";
@@ -26,9 +27,9 @@ function App() {
     ref.current.focus();
   };
 
-  useEffect(() => {
-    console.log(reduxState.value);
-  }, [reduxState]);
+  // useEffect(() => {
+  //   console.log(reduxState.value);
+  // }, [reduxState]);
 
   const changeHandler = (e) => {
     setTampVal({ id: tampVal.id, index: tampVal.index, task: e.target.value });
@@ -129,7 +130,10 @@ function App() {
             {". "}
             {x.task}
           </p>
-          <button onClick={() => deleteTodo(x.id)}>dlt</button>
+
+          <IconButton aria-label="delete">
+            <DeleteIcon onClick={() => deleteTodo(x.id)} />
+          </IconButton>
         </Stack>
       ))}
     </div>
