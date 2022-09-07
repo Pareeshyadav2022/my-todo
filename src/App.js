@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
@@ -75,66 +75,63 @@ function App() {
 
       <Box
         component="form"
-        sx={{
-          "& > :not(style)": { m: 1, width: "30ch" },
-        }}
+        sx={{ display: "flex", mx: 2, justifyContent: "center" }}
         noValidate
-        autoComplete="off"
       >
         <TextField
+          sx={{ flex: 1, maxWidth: "440px" }}
           ref={ref}
           id={new Date().valueOf()}
-          label="Add your task"
+          label="Add your tasks..."
           variant="outlined"
           value={input.task}
+          size="medium"
           onChange={changeHandler}
         />
         <Button
           variant="contained"
           onClick={addTodo}
-          sx={{ display: addProp, width: "30px" }}
+          sx={{ display: addProp, width: "30px", mx: 1 }}
         >
           Add
         </Button>
         <Button
           variant="contained"
           onClick={updateTodo}
-          sx={{ display: saveProp, width: "3j0px" }}
+          sx={{ display: saveProp, width: "30px", mx: 1 }}
         >
           Save
         </Button>
       </Box>
-
-      {reduxState.value.map((x, index) => {
-        return (
-          <div
+      {reduxState.value.map((x, index) => (
+        <Stack
+          key={index}
+          sx={{
+            flexDirection: "row",
+            borderBottom: "2px solid #222222",
+            borderRadius: "4px",
+            maxWidth: "510px",
+            mx: "auto",
+            my: 1,
+          }}
+          component="p"
+        >
+          <p
             key={index}
+            onClick={() => editTask(x, index)}
             style={{
-              display: "flex",
+              textAlign: "left",
               flex: 1,
-              border: "1px solid gray",
-              borderRadius: "8px",
-              padding: "5px",
             }}
+            className="item"
           >
-            <p
-              key={index}
-              onClick={() => editTask(x, index)}
-              style={{
-                display: { addProp },
-                textAlign: "left",
-                flex: 1,
-              }}
-              className="item"
-            >
-              {index + 1}
-              {". "}
-              {x.task}
-            </p>
-            <button onClick={() => deleteTodo(x.id)}>dlt</button>
-          </div>
-        );
-      })}
+            {index + 1}
+            {". "}
+            {x.task}
+          </p>
+          <button onClick={() => deleteTodo(x.id)}>dlt</button>
+        </Stack>
+      ))}
     </div>
   );
 }
