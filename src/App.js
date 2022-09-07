@@ -1,3 +1,4 @@
+import { Box, Button, TextField } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
@@ -71,20 +72,39 @@ function App() {
   return (
     <div className="App">
       <h1>Todo App</h1>
-      <input
-        ref={ref}
-        type="text"
-        value={input.task}
-        id={new Date().valueOf()}
-        placeholder="Write a todo..."
-        onChange={changeHandler}
-      />
-      <button onClick={addTodo} style={{ display: addProp }}>
-        Add
-      </button>
-      <button onClick={updateTodo} style={{ display: saveProp }}>
-        Save
-      </button>
+
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "30ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          ref={ref}
+          id={new Date().valueOf()}
+          label="Add your task"
+          variant="outlined"
+          value={input.task}
+          onChange={changeHandler}
+        />
+        <Button
+          variant="contained"
+          onClick={addTodo}
+          sx={{ display: addProp, width: "30px" }}
+        >
+          Add
+        </Button>
+        <Button
+          variant="contained"
+          onClick={updateTodo}
+          sx={{ display: saveProp, width: "3j0px" }}
+        >
+          Save
+        </Button>
+      </Box>
+
       {reduxState.value.map((x, index) => {
         return (
           <div
@@ -94,8 +114,6 @@ function App() {
               flex: 1,
               border: "1px solid gray",
               borderRadius: "8px",
-              width: "40%",
-              margin: "0 0 0.4% 30%",
               padding: "5px",
             }}
           >
@@ -107,6 +125,7 @@ function App() {
                 textAlign: "left",
                 flex: 1,
               }}
+              className="item"
             >
               {index + 1}
               {". "}
