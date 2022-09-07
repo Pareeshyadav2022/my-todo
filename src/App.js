@@ -27,10 +27,6 @@ function App() {
     ref.current.focus();
   };
 
-  // useEffect(() => {
-  //   console.log(reduxState.value);
-  // }, [reduxState]);
-
   const changeHandler = (e) => {
     setTampVal({ id: tampVal.id, index: tampVal.index, task: e.target.value });
     setInput({
