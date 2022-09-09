@@ -7,7 +7,7 @@ import "./App.css";
 import { addTasks, updateTask, deleteTask } from "./redux/reducer";
 
 function App() {
-  const ref = useRef("");
+  const ref = useRef();
 
   const [tampVal, setTampVal] = useState({ id: null, index: null, task: "" });
 
@@ -21,13 +21,15 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const addTodo = () => {
+  const addTodo = (e) => {
+    e.preventDefault();
     input.task.trim() ? dispatch(addTasks(input)) : <h1>enter a value</h1>;
     setInput({ task: "" });
     ref.current.focus();
   };
 
   const changeHandler = (e) => {
+    e.preventDefault();
     setTampVal({ id: tampVal.id, index: tampVal.index, task: e.target.value });
     setInput({
       id: e.target.id,
@@ -72,6 +74,7 @@ function App() {
 
       <Box
         component="form"
+        onSubmit={addTodo}
         sx={{ display: "flex", mx: 2, justifyContent: "center" }}
         noValidate
       >
@@ -107,7 +110,7 @@ function App() {
             flexDirection: "row",
             borderBottom: "2px solid #222222",
             borderRadius: "4px",
-            maxWidth: "510px",
+            maxWidth: "300px",
             mx: "auto",
             my: 1,
           }}
