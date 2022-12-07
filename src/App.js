@@ -1,7 +1,8 @@
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "./App.css";
 
 import { addTasks, updateTask, deleteTask } from "./redux/reducer";
@@ -117,8 +118,6 @@ function App() {
           component="p"
         >
           <p
-            key={index}
-            onClick={() => editTask(x, index)}
             style={{
               textAlign: "left",
               flex: 1,
@@ -129,7 +128,9 @@ function App() {
             {". "}
             {x.task}
           </p>
-
+          <IconButton aria-label="edit">
+            <BorderColorIcon onClick={() => editTask(x, index)} />
+          </IconButton>
           <IconButton aria-label="delete">
             <DeleteIcon onClick={() => deleteTodo(x.id)} />
           </IconButton>

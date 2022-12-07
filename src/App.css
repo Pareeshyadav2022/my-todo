@@ -15,8 +15,7 @@ p {
   font-size: 18px;
 }
 
-.App button,
-p:hover {
+.App button {
   cursor: pointer;
   border-radius: px;
 }
